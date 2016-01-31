@@ -1,21 +1,3 @@
-const unitsMapping = {
-  'mm': {
-    'mm': 1,
-    'cm': 0.1,
-    'm': 0.001
-  },
-  'cm': {
-    'mm': 10,
-    'cm': 1,
-    'm': 100
-  },
-  'm': {
-    'mm': 1000,
-    'cm': 100,
-    'm': 1
-  },
-};
-
 class Shape {
   constructor(...args) {
     var self = this;
@@ -33,6 +15,28 @@ class Shape {
         throw new TypeError('Class ' + self.constructor.name + ' must have ' + method + ' method');
       }
     });
+  }
+
+  static unitsMapping(inUnits, outUnits) {
+    const unitMap = {
+      'mm': {
+        'mm': 1,
+        'cm': 0.1,
+        'm': 0.001
+      },
+      'cm': {
+        'mm': 10,
+        'cm': 1,
+        'm': 100
+      },
+      'm': {
+        'mm': 1000,
+        'cm': 100,
+        'm': 1
+      }
+    }
+
+    return unitMap[inUnits][outUnits]
   }
 
   perimeter(units) {
@@ -53,7 +57,7 @@ class Shape {
     }
 
     this.sides = this.sides.map(function(side) {
-      return side * unitsMapping[this._units][outUnits];
+      return side * Shape.unitsMapping(this._units, outUnits);
     }, this);
 
     this._units = outUnits;
