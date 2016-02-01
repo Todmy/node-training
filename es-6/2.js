@@ -34,6 +34,3 @@ uniqDocs.set('dds', uniqDocs.get('dd'));
 
 console.log(uniqDocs.delete([ 'dd', 'sss' ]));
 console.log(uniqDocs.get('dds'));
-
-let sym = Symbol.for('Hello everybody!');
-console.log(Symbol.keyFor(sym));
